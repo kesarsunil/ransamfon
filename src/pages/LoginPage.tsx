@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, authPersistenceReady, googleProvider } from '../firebase';
-import { browserLocalPersistence, getRedirectResult, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth';
+import { browserLocalPersistence, getRedirectResult, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -61,16 +61,8 @@ const LoginPage = () => {
     try {
       await authPersistenceReady;
       await setPersistence(auth, browserLocalPersistence);
-      await signInWithPopup(auth, googleProvider);
-      navigate('/dashboard');
+      await signInWithRedirect(auth, googleProvider);
     } catch (error: any) {
-      if (error.code === 'auth/popup-blocked') {
-        await authPersistenceReady;
-        await setPersistence(auth, browserLocalPersistence);
-        await signInWithRedirect(auth, googleProvider);
-        return;
-      }
-
       setError(error.message || 'Failed to sign in with Google.');
       console.error('Google sign in error:', error);
     } finally {
