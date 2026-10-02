@@ -12,16 +12,20 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate('/dashboard');
-      }
-    });
+    let active = true;
+    let unsubscribe: (() => void) | undefined;
 
-    const completeGoogleSignIn = async () => {
+    const initializeAuthentication = async () => {
       try {
+        await authPersistenceReady;
+        unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user && active) {
+            navigate('/dashboard');
+          }
+        });
+
         const result = await getRedirectResult(auth);
-        if (result) {
+        if (result && active) {
           navigate('/dashboard');
         }
       } catch (error: any) {
@@ -32,9 +36,12 @@ const LoginPage = () => {
       }
     };
 
-    completeGoogleSignIn();
+    initializeAuthentication();
 
-    return () => unsubscribe();
+    return () => {
+      active = false;
+      unsubscribe?.();
+    };
   }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
