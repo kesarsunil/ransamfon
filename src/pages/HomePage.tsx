@@ -44,7 +44,7 @@ export const HomePage = () => {
             {/* Main Title */}
             <div className="space-y-1">
               <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-normal tracking-tight text-white leading-none">
-                RANSOMWARE 
+                FILE SECURE
               </h1>
               <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-normal tracking-tight text-white leading-none">
                 DETECTION
