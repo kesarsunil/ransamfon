@@ -12,27 +12,44 @@ const DashboardPage = () => {
 
   useEffect(() => {
     let active = true;
+    let redirectTimer: ReturnType<typeof setTimeout> | undefined;
+    let unsubscribe: (() => void) | undefined;
 
     const checkAuthentication = async () => {
       await authPersistenceReady;
-      await auth.authStateReady();
 
       if (!active) {
         return;
       }
 
-      if (auth.currentUser) {
-        setUser(auth.currentUser);
-        setLoading(false);
-      } else {
-        navigate('/login');
-      }
+      unsubscribe = auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          if (redirectTimer) {
+            clearTimeout(redirectTimer);
+          }
+          setUser(currentUser);
+          setLoading(false);
+          return;
+        }
+
+        redirectTimer = setTimeout(() => {
+          if (active) {
+            setLoading(false);
+            navigate('/login');
+          }
+        }, 2000);
+
+      });
     };
 
     checkAuthentication();
 
     return () => {
       active = false;
+      if (redirectTimer) {
+        clearTimeout(redirectTimer);
+      }
+      unsubscribe?.();
     };
   }, [navigate]);
 
