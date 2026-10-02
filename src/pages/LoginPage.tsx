@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
-import { getRedirectResult, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,6 +12,12 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate('/dashboard');
+      }
+    });
+
     const completeGoogleSignIn = async () => {
       try {
         const result = await getRedirectResult(auth);
@@ -27,6 +33,8 @@ const LoginPage = () => {
     };
 
     completeGoogleSignIn();
+
+    return () => unsubscribe();
   }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
