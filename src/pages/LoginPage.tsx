@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { getRedirectResult, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -10,6 +10,24 @@ const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const completeGoogleSignIn = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          navigate('/dashboard');
+        }
+      } catch (error: any) {
+        setError(error.message || 'Failed to sign in with Google.');
+        console.error('Google sign in error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    completeGoogleSignIn();
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +51,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await signInWithPopup(auth, googleProvider);
-      // Successfully logged in with Google, redirect to dashboard
-      navigate('/dashboard');
+      await signInWithRedirect(auth, googleProvider);
     } catch (error: any) {
       setError(error.message || 'Failed to sign in with Google.');
       console.error('Google sign in error:', error);
