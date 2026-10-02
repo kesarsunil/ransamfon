@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, authPersistenceReady } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { ArrowRight, Download, LogOut, User as UserIcon } from 'lucide-react';
@@ -11,19 +11,29 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
+    let active = true;
+
+    const checkAuthentication = async () => {
+      await authPersistenceReady;
+      await auth.authStateReady();
+
+      if (!active) {
+        return;
+      }
+
+      if (auth.currentUser) {
+        setUser(auth.currentUser);
         setLoading(false);
       } else {
-        // If not logged in, redirect to login page
-        setLoading(false);
         navigate('/login');
       }
-    });
+    };
 
-    return () => unsubscribe();
+    checkAuthentication();
+
+    return () => {
+      active = false;
+    };
   }, [navigate]);
 
   const handleLogout = async () => {
