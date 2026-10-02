@@ -9,7 +9,7 @@ export const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-screen relative overflow-x-hidden" style={{ backgroundColor: '#F3F0EA' }}>
+    <div id="top" className="min-h-screen w-screen relative overflow-x-hidden" style={{ backgroundColor: '#F3F0EA' }}>
       {/* Outer Container with 10px padding */}
       <div className="h-screen p-[10px]">
         {/* Inner Container with 10px padding and shader background */}
@@ -216,10 +216,10 @@ export const HomePage = () => {
             <div>
               <h3 className="text-xs font-bold text-gray-900 mb-4 uppercase tracking-widest">INTERNAL</h3>
               <ul className="space-y-2 text-sm text-gray-800 font-mono">
-                <li><a href="#" className="hover:text-gray-900 transition-colors">HOME</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition-colors">ABOUT US</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition-colors">PROJECTS</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition-colors">CONTACT</a></li>
+                <li><a href="#top" className="hover:text-gray-900 transition-colors">HOME</a></li>
+                <li><a href="#about" className="hover:text-gray-900 transition-colors">ABOUT US</a></li>
+                <li><a href="#work" className="hover:text-gray-900 transition-colors">PROJECTS</a></li>
+                <li><a href="#footer" className="hover:text-gray-900 transition-colors">CONTACT</a></li>
               </ul>
             </div>
           </div>
@@ -227,8 +227,8 @@ export const HomePage = () => {
           <div className="mt-16">
             <h3 className="text-xs font-bold text-gray-900 mb-4 uppercase tracking-widest">EXTERNAL</h3>
             <div className="flex gap-6 justify-center">
-              <a href="#" className="text-sm text-gray-800 font-mono hover:text-gray-900 transition-colors">INSTAGRAM</a>
-              <a href="#" className="text-sm text-gray-800 font-mono hover:text-gray-900 transition-colors">LINKEDIN</a>
+              <a href="https://www.instagram.com/" className="text-sm text-gray-800 font-mono hover:text-gray-900 transition-colors">INSTAGRAM</a>
+              <a href="https://www.linkedin.com/" className="text-sm text-gray-800 font-mono hover:text-gray-900 transition-colors">LINKEDIN</a>
             </div>
           </div>
         </div>

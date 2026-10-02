@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Globe, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const Navbar = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { ArrowRight, Download, LogOut, User as UserIcon, Activity } from 'lucide-react';
+import { ArrowRight, Download, LogOut, User as UserIcon } from 'lucide-react';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
