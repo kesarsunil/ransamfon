@@ -37,10 +37,10 @@ export const Navbar = () => {
             ABOUT US
           </a>
           <a 
-            href="#store" 
+            href="#footer" 
             className="text-white/70 hover:text-white transition-colors duration-200"
           >
-            STORE
+            FOOTER
           </a>
         </div>
 

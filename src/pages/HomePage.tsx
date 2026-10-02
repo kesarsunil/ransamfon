@@ -1,10 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DotScreenShader } from '../components/ui/dot-shader-background';
 import { Navbar } from '../components/Navbar';
 import { LogoRail } from '../components/LogoRail';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 
 export const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen w-screen relative overflow-x-hidden" style={{ backgroundColor: '#F3F0EA' }}>
       {/* Outer Container with 10px padding */}
@@ -55,7 +58,11 @@ export const HomePage = () => {
 
             {/* CTA Button */}
             <div className="flex items-start mt-4 pointer-events-auto">
-              <button className="px-8 py-3 bg-white text-black rounded-md hover:bg-white/90 transition-all duration-200 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide pointer-events-auto">
+              <button
+                type="button"
+                onClick={() => navigate('/login')}
+                className="px-8 py-3 bg-white text-black rounded-md hover:bg-white/90 transition-all duration-200 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide pointer-events-auto"
+              >
                 <span>LOGIN</span>
                 <ArrowRight size={16} />
               </button>
@@ -71,12 +78,14 @@ export const HomePage = () => {
       </div>
 
       {/* Logo Rail Section */}
-      <LogoRail />
+      <div id="work" className="scroll-mt-24">
+        <LogoRail />
+      </div>
 
       {/* Security Section */}
       <div className="w-full p-[20px]" style={{ backgroundColor: '#F3F0EA' }}>
         {/* First Row - 2 Containers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px] mb-[20px]">
+        <div id="services" className="scroll-mt-24 grid grid-cols-1 md:grid-cols-2 gap-[20px] mb-[20px]">
           {/* Container 1 - Files Encrypted Warning */}
           <div className="bg-black rounded-2xl shadow-lg overflow-hidden hover:scale-[1.02] transition-transform duration-300">
             <div className="relative h-[400px] flex items-center justify-center">
@@ -169,8 +178,22 @@ export const HomePage = () => {
         </div>
       </div>
 
+      {/* About Section */}
+      <section id="about" className="scroll-mt-24 w-full px-8 py-24 md:px-16" style={{ backgroundColor: '#111111' }}>
+        <div className="max-w-4xl">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">About us</p>
+          <h2 className="text-4xl md:text-6xl font-normal text-white leading-tight mb-6">
+            We build calm, clear defenses for complex threats.
+          </h2>
+          <p className="max-w-2xl text-base md:text-lg leading-relaxed text-white/70">
+            Our ransomware detection platform helps teams understand risk early,
+            protect important files, and respond with confidence when it matters.
+          </p>
+        </div>
+      </section>
+
       {/* Contact Section - Yellow Glow Background */}
-      <div className="w-full relative min-h-screen flex flex-col items-start justify-center pl-[10px]" style={{ background: 'linear-gradient(to top, #EAED7E 0%, #EAED7E 30px, #E2E29A 150px, #F3F0EA 100%)' }}>
+      <footer id="footer" className="scroll-mt-24 w-full relative min-h-screen flex flex-col items-start justify-center pl-[10px]" style={{ background: 'linear-gradient(to top, #EAED7E 0%, #EAED7E 30px, #E2E29A 150px, #F3F0EA 100%)' }}>
         {/* Content Overlay */}
         <div className="relative z-10 text-left max-w-5xl px-8 py-20">
           <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
@@ -209,7 +232,7 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

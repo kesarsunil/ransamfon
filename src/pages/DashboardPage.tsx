@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { ArrowRight, LogOut, User as UserIcon, Activity } from 'lucide-react';
+import { ArrowRight, Download, LogOut, User as UserIcon, Activity } from 'lucide-react';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ const DashboardPage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">File Ransomware Scanner</h3>
+              <h3 className="text-2xl font-bold text-gray-900">File Scanner</h3>
             </div>
             
             <div className="space-y-4 mb-6">
@@ -111,6 +111,8 @@ const DashboardPage = () => {
             </div>
 
             <button
+              type="button"
+              onClick={() => window.open('https://laptopon-1.onrender.com/', '_blank', 'noopener,noreferrer')}
               className="w-full px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-medium hover:from-red-600 hover:to-pink-600 transition-all flex items-center justify-center gap-2"
             >
               <span>Upload & Scan File</span>
@@ -153,6 +155,46 @@ const DashboardPage = () => {
             </button>
           </div>
         </div>
+
+        {/* Windows Monitor Download */}
+        <section className="mt-8 bg-white rounded-2xl shadow-lg p-8 border border-gray-200 text-gray-900">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+            <div>
+              <p className="text-sm uppercase tracking-widest text-red-500 mb-2">Windows protection</p>
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">Download Windows Monitor</h3>
+              <p className="text-gray-600 max-w-2xl leading-relaxed">
+                Download the Windows Monitor executable to continuously check new files downloaded to your system.
+              </p>
+            </div>
+            <a
+              href="/START_MONITOR.exe"
+              download="START_MONITOR.exe"
+              className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-medium hover:from-red-600 hover:to-pink-600 transition-all"
+            >
+              <Download size={18} />
+              <span>Download .exe</span>
+            </a>
+          </div>
+
+          <div className="border-t border-gray-200 pt-6">
+            <h4 className="text-lg font-semibold mb-4">How to install and use it</h4>
+            <ol className="space-y-3 text-gray-600 leading-relaxed list-decimal list-inside">
+              <li><strong className="font-bold text-gray-900">Download</strong> the Windows Monitor <code className="font-semibold text-gray-900">.exe</code> using the button above.</li>
+              <li>After downloading, open the <code className="font-semibold text-gray-900">.exe</code> file.</li>
+              <li>A <strong className="font-bold text-gray-900">Command Prompt window</strong> will open automatically.</li>
+              <li>The monitor will start running in the background and monitor files downloaded to your system.</li>
+              <li>Whenever a new file is downloaded, the monitor automatically checks the file.</li>
+              <li>The Command Prompt displays whether the detected file is <strong className="text-green-300">Safe</strong> or <strong className="text-red-300">Unsafe</strong>.</li>
+              <li>Keep the Command Prompt running while you want continuous monitoring.</li>
+              <li>To stop the monitoring, press <kbd className="rounded bg-gray-100 px-2 py-1 font-bold text-gray-900">Ctrl + C</kbd> in the Command Prompt.</li>
+              <li>The monitoring process will stop safely.</li>
+            </ol>
+
+            <p className="mt-6 rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-3 text-sm text-yellow-900">
+              <strong>Note:</strong> The <code>.exe</code> needs to remain running for monitoring to continue. It does not continuously monitor the system after you close the Command Prompt.
+            </p>
+          </div>
+        </section>
       </div>
 
       {/* Bottom Glow Light Effect */}
