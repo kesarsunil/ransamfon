@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
-import { getRedirectResult, onAuthStateChanged, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -59,8 +59,14 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await signInWithRedirect(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
+      navigate('/dashboard');
     } catch (error: any) {
+      if (error.code === 'auth/popup-blocked') {
+        await signInWithRedirect(auth, googleProvider);
+        return;
+      }
+
       setError(error.message || 'Failed to sign in with Google.');
       console.error('Google sign in error:', error);
     } finally {
