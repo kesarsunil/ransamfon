@@ -18,6 +18,7 @@ const DashboardPage = () => {
         setLoading(false);
       } else {
         // If not logged in, redirect to login page
+        setLoading(false);
         navigate('/login');
       }
     });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
-import { getRedirectResult, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth';
+import { browserLocalPersistence, getRedirectResult, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -59,10 +59,12 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
+      await setPersistence(auth, browserLocalPersistence);
       await signInWithPopup(auth, googleProvider);
       navigate('/dashboard');
     } catch (error: any) {
       if (error.code === 'auth/popup-blocked') {
+        await setPersistence(auth, browserLocalPersistence);
         await signInWithRedirect(auth, googleProvider);
         return;
       }
