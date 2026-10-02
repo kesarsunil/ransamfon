@@ -167,7 +167,7 @@ const DashboardPage = () => {
               </p>
             </div>
             <a
-              href="/START_MONITOR.exe"
+              href="https://raw.githubusercontent.com/kesarsunil/ransamfon/main/public/START_MONITOR.exe"
               download="START_MONITOR.exe"
               className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-medium hover:from-red-600 hover:to-pink-600 transition-all"
             >
